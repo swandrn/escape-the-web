@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { checkCombination } from "../components/Safe";
+import { checkCombination } from "../utils/safe";
 
 describe("Safe puzzle – checkCombination()", () => {
   const SECRET = "1234";
