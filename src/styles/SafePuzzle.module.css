@@ -1,0 +1,74 @@
+.container {
+	max-width: 320px;
+	margin: 2rem auto;
+	padding: 1.5rem;
+	border: 2px solid #333;
+	border-radius: 8px;
+	text-align: center;
+	font-family: sans-serif;
+}
+
+.heading {
+	margin-bottom: 0.5rem;
+}
+
+.riddle {
+	font-style: italic;
+	color: #555;
+	margin-bottom: 1rem;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.input {
+	padding: 0.5rem;
+	font-size: 1.25rem;
+	text-align: center;
+	letter-spacing: 0.5rem;
+}
+
+.button {
+	padding: 0.5rem;
+	font-size: 1rem;
+	cursor: pointer;
+}
+
+.error {
+	color: crimson;
+	margin-top: 0.5rem;
+}
+
+.success {
+	color: green;
+	font-weight: bold;
+	font-size: 1.25rem;
+	margin-top: 1rem;
+}
+
+.hintToggle {
+	margin-top: 1rem;
+	background: none;
+	border: none;
+	color: #007bff;
+	text-decoration: underline;
+	cursor: pointer;
+	font-size: 0.9rem;
+}
+
+.hints {
+	margin-top: 0.5rem;
+	padding: 0.75rem;
+	background: #f9f9f9;
+	border-radius: 4px;
+	text-align: left;
+	font-size: 0.9rem;
+}
+
+.hints p {
+	margin: 0.25rem 0;
+	color: black;
+}
