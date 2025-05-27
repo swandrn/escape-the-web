@@ -1,20 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { SafePuzzle } from "./components/SafePuzzle";
 
-function App() {
-  const [stage, setStage] = useState<"safe" | "next">("safe");
+export default function App() {
+  const [currentPuzzle, setCurrentPuzzle] = useState<"safe" | "none">("none");
 
   return (
-    <div>
-      {stage === "safe" && <SafePuzzle onSuccess={() => setStage("next")} />}
-      {stage === "next" && (
-        <div style={{ textAlign: "center", marginTop: "2rem" }}>
-          <h1>🎉 On to Puzzle #2!</h1>
-          {/* render puzzle #2 component here */}
-        </div>
+    <>
+      {currentPuzzle === "safe" && (
+        <SafePuzzle onSuccess={() => setCurrentPuzzle("none")} />
       )}
-    </div>
+      {currentPuzzle === "none" && <p>Select a puzzle to begin.</p>}
+    </>
   );
 }
-
-export default App;
