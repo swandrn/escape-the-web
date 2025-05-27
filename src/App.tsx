@@ -1,58 +1,69 @@
 import { useState } from "react";
 import { SafePuzzle } from "./components/SafePuzzle";
 import { HiddenWordPuzzle } from "./components/HiddenWordPuzzle";
+import { ColorOrderPuzzle } from "./components/ColorOrderPuzzle";
 
-type PuzzleKey = "safe" | "hiddenWord" | "none";
+type PuzzleKey = "safe" | "hiddenWord" | "colorOrder" | "none";
+
+const puzzleOrder: PuzzleKey[] = ["safe", "hiddenWord", "colorOrder"];
 
 export default function App() {
   const [currentPuzzle, setCurrentPuzzle] = useState<PuzzleKey>("safe");
   const [solved, setSolved] = useState<PuzzleKey[]>([]);
 
   const handleSuccess = () => {
-    // Mark the current as solved
+    // Mark solved
     setSolved((prev) => [...prev, currentPuzzle]);
 
-    // Advance
-    if (currentPuzzle === "safe") {
-      setCurrentPuzzle("hiddenWord");
-    } else if (currentPuzzle === "hiddenWord") {
-    } else {
-      setCurrentPuzzle("none");
-    }
+    // Compute next unsolved
+    const next = (() => {
+      const start = puzzleOrder.indexOf(currentPuzzle);
+      for (let offset = 1; offset <= puzzleOrder.length; offset++) {
+        const idx = (start + offset) % puzzleOrder.length;
+        const candidate = puzzleOrder[idx];
+        if (![...solved, currentPuzzle].includes(candidate)) {
+          return candidate;
+        }
+      }
+      return "none" as PuzzleKey;
+    })();
+
+    setCurrentPuzzle(next);
   };
 
-  // Helper to disable if already solved
   const isSolved = (key: PuzzleKey) => solved.includes(key);
 
   return (
     <div style={{ padding: "2rem", fontFamily: "sans-serif" }}>
-      {/* Navigation Buttons */}
       <nav style={{ marginBottom: "1.5rem", textAlign: "center" }}>
-        <button
-          onClick={() => setCurrentPuzzle("safe")}
-          disabled={isSolved("safe")}
-          style={{ margin: "0 0.5rem" }}
-        >
-          Safe Puzzle
-        </button>
-        <button
-          onClick={() => setCurrentPuzzle("hiddenWord")}
-          disabled={isSolved("hiddenWord")}
-          style={{ margin: "0 0.5rem" }}
-        >
-          Hidden Word
-        </button>
+        {puzzleOrder.map((key) => (
+          <button
+            key={key}
+            onClick={() => setCurrentPuzzle(key)}
+            disabled={isSolved(key)}
+            style={{ margin: "0 0.5rem" }}
+          >
+            {key === "safe"
+              ? "Safe Puzzle"
+              : key === "hiddenWord"
+              ? "Hidden Word"
+              : "Color Order"}
+          </button>
+        ))}
       </nav>
 
-      {/* Puzzle Display */}
       {currentPuzzle === "safe" && (
         <SafePuzzle onSuccess={handleSuccess} secret="1234" />
       )}
-
       {currentPuzzle === "hiddenWord" && (
         <HiddenWordPuzzle onSuccess={handleSuccess} secret="REACT" />
       )}
-
+      {currentPuzzle === "colorOrder" && (
+        <ColorOrderPuzzle
+          onSuccess={handleSuccess}
+          secret={["blue", "red", "yellow"]}
+        />
+      )}
       {currentPuzzle === "none" && (
         <div style={{ textAlign: "center" }}>
           <h2>All puzzles complete! 🎉</h2>
