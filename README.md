@@ -1,54 +1,104 @@
-# React + TypeScript + Vite
+# Escape The Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Mini‐jeu d’escape en JavaScript/React/Vite
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Installation et démarrage
 
-## Expanding the ESLint configuration
+1. **Cloner le dépôt**
+   ```bash
+   git clone https://github.com/ton-orga/escape-the-web.git
+   cd escape-the-web
+   ```
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+2. **Installer les dépendances**
+   ```bash
+   npm install
+   # ou
+   yarn install
+   ```
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+3. **Lancer le serveur de développement**
+   ```bash
+   npm run dev
+   # puis ouvrir http://localhost:3000 dans votre navigateur
+   ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+4. **Tests unitaires**
+   ```bash
+   npm run test:unit
+   # (ne lance que les tests situés dans src/tests/*.test.ts(x))
+   ```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+5. **Tests E2E Playwright**
+   ```bash
+   npx playwright test
+   ```
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+6. **Linting**
+   ```bash
+   npm run lint
+   ```
+
+---
+
+## Les énigmes
+
+### 1. Coffre-fort (SafePuzzle)
+
+- **Indice (riddle)**
+  > “I start at one and climb, no tricks or sudden dips.\
+  > My first four steps are all you need to slip.”
+
+- **Mécanique** : saisir un code à 4 chiffres.
+- **Réponse** :
+  ```text
+  1234
+  ```
+
+---
+
+### 2. Mot caché (HiddenWordPuzzle)
+
+- **Indice (riddle)**
+  > “I power web UIs with components and hooks;\
+  > Five letters name me—now shuffle my books.”
+
+- **Mécanique** : reconstituer le mot en devinant la combinaison des lettres
+  - Affichage partiel : `R _ _ _ T`
+  - Pool de lettres mélangées : `A C E`
+
+- **Réponse** :
+  ```text
+  REACT
+  ```
+
+---
+
+### 3. Ordre des couleurs (ColorOrderPuzzle)
+
+- **Indice (riddle)**
+  > “First the calm before the storm,\
+  > Then passion’s fire to keep you warm,\
+  > Lastly sunshine crowns the day—\
+  > Tap in order, don’t lose your way.”
+
+- **Mécanique**
+  1. Huit pastilles de couleur sont affichées (dont 3 bonnes + 5 distracteurs)
+  2. Cliquer successivement sur **bleu**, **rouge**, **jaune**
+  3. À la 3ᵉ sélection, l’ordre est validé :
+     - si exact → puzzle résolu
+     - sinon → message d’erreur, réinitialisation de la sélection
+
+- **Réponse** :
+  1. **blue**
+  2. **red**
+  3. **yellow**
+
+---
+
+Vous avez terminé toutes les énigmes !
+
+N’hésitez pas à relancer le serveur ou à recharger la page pour recommencer
+l’aventure.
